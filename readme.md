@@ -1,6 +1,6 @@
 # The PHP helpers function extract from Laravel
 
-[![Build Status](https://travis-ci.org/phannaly/php-datetime-khmer.svg?branch=master)](https://travis-ci.org/phannaly/php-datetime-khmer)  [![StyleCI](https://github.styleci.io/repos/148669698/shield?branch=master)](https://github.styleci.io/repos/148669698)
+[![Build Status](https://travis-ci.org/phannaly/php-datetime-khmer.svg?branch=master)](https://travis-ci.org/phannaly/php-datetime-khmer)  [![StyleCI](https://github.styleci.io/repos/165952860/shield?branch=master)](https://github.styleci.io/repos/165952860)
 
 This is a small package for convert datetime to Khmer language.
 
