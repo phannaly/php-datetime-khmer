@@ -4,7 +4,8 @@ namespace Phanna\Converter;
 
 use DateTime;
 
-class KhmerDatetime {   
+class KhmerDatetime
+{
     /**
      * @var array
      */
@@ -22,7 +23,7 @@ class KhmerDatetime {
      */
     public $date;
 
-    public function convert($date) 
+    public function convert($date)
     {
         $this->date = $date;
         $this->khmerMonth = $this->getKhmerMonths();
@@ -33,13 +34,13 @@ class KhmerDatetime {
     }
 
     /**
-     * Get full month name in Khmer
+     * Get full month name in Khmer.
      *
      * @return string
      */
-    public function getFullMonth() 
+    public function getFullMonth()
     {
-        $month = date("F",strtotime($this->date));
+        $month = date('F', strtotime($this->date));
 
         $monthIndex = array_search($month, $this->internationalMonth);
 
@@ -47,13 +48,13 @@ class KhmerDatetime {
     }
 
     /**
-     * Get full month name in Khmer
+     * Get full month name in Khmer.
      *
      * @return string
      */
-    public function getFullDayName() 
+    public function getFullDayName()
     {
-        $day = date("l",strtotime($this->date));
+        $day = date('l', strtotime($this->date));
 
         $dayIndex = array_search($day, $this->getStardardFullDaysName());
 
@@ -61,40 +62,42 @@ class KhmerDatetime {
     }
 
     /**
-     * Get full day name in Khmer
+     * Get full day name in Khmer.
      *
      * @return string
      */
-    public function getFullDay() 
+    public function getFullDay()
     {
-        $dateNumber = date("d",strtotime($this->date));
-        return $this->khmerNumber[$dateNumber[0]]."".$this->khmerNumber[$dateNumber[1]];
+        $dateNumber = date('d', strtotime($this->date));
+
+        return $this->khmerNumber[$dateNumber[0]].''.$this->khmerNumber[$dateNumber[1]];
     }
 
     /**
-     * Get full year 4 number in Khmer
+     * Get full year 4 number in Khmer.
      *
      * @return string
      */
-    public function getFullYear() 
+    public function getFullYear()
     {
         $khmerNumber = $this->getKhmerNumber();
-        $yearFullNumber = date("Y",strtotime($this->date));
+        $yearFullNumber = date('Y', strtotime($this->date));
 
-        $month = array_map(function($str) use ($khmerNumber) {
+        $month = array_map(function ($str) use ($khmerNumber) {
             return $khmerNumber[$str];
         }, str_split($yearFullNumber));
 
-        return join("",$month);
+        return implode('', $month);
     }
 
     /**
-     * Get date base on format
+     * Get date base on format.
      *
-     * @param  string $revers
+     * @param string $revers
+     *
      * @return string
      */
-    public function getDate($revers = null) 
+    public function getDate($revers = null)
     {
         if ($this->isForwardSlah($this->date)) {
             return $this->getForwardSlahFormat($revers);
@@ -104,13 +107,13 @@ class KhmerDatetime {
             return $this->getDashFormat($revers);
         }
 
-        throw new \Exception("Undefined date format");
+        throw new \Exception('Undefined date format');
     }
 
     /**
-     * Checking if given date is a forward slash format
+     * Checking if given date is a forward slash format.
      *
-     * @return boolean
+     * @return bool
      */
     public function isForwardSlah()
     {
@@ -118,9 +121,9 @@ class KhmerDatetime {
     }
 
     /**
-     * Checking if given date is a dash format
+     * Checking if given date is a dash format.
      *
-     * @return boolean
+     * @return bool
      */
     public function isDash()
     {
@@ -128,34 +131,35 @@ class KhmerDatetime {
     }
 
     /**
-     * Get date in khmer format as Y/m/d
+     * Get date in khmer format as Y/m/d.
      *
      * @return string
      */
-    public function getForwardSlahFormat($revers) 
+    public function getForwardSlahFormat($revers)
     {
-        return $this->format("/", $revers);
+        return $this->format('/', $revers);
     }
 
     /**
-     * Get date in khmer format as Y-m-d
+     * Get date in khmer format as Y-m-d.
      *
      * @return string
      */
-    public function getDashFormat($revers) 
+    public function getDashFormat($revers)
     {
-        return $this->format("-", $revers);
+        return $this->format('-', $revers);
     }
 
     /**
-     * Return given date format
+     * Return given date format.
      *
-     * @param  string $sign
+     * @param string $sign
+     *
      * @return string
      */
-    public function format($sign, $revers) 
+    public function format($sign, $revers)
     {
-        if ($revers === "revers") {
+        if ($revers === 'revers') {
             return $this->getFullDay().$sign.$this->getFullMonth().$sign.$this->getFullYear();
         }
 
@@ -163,31 +167,31 @@ class KhmerDatetime {
     }
 
     /**
-     * Get khmer number from 0 to 9
+     * Get khmer number from 0 to 9.
      *
      * @return array
      */
-    public function getKhmerNumber() 
+    public function getKhmerNumber()
     {
         return ['០', '១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩'];
     }
 
     /**
-     * Get internation month in full nam
+     * Get internation month in full nam.
      *
      * @return aray
      */
-    public function getInternationalMonth() 
+    public function getInternationalMonth()
     {
         return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September ', 'October', 'November', 'December'];
     }
 
     /**
-     * Get khmer month in full name
+     * Get khmer month in full name.
      *
      * @return array
      */
-    public function getKhmerMonths() 
+    public function getKhmerMonths()
     {
         return ['មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា', 'សីហា', 'កញ្ញា', 'តុលា', 'វិច្ឆិកា', 'ធ្នូ'];
     }
