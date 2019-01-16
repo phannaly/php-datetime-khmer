@@ -1,4 +1,4 @@
-# The PHP helpers function extract from Laravel
+# The PHP libray for convert datetime into Khmer
 
 [![Build Status](https://travis-ci.org/phannaly/php-datetime-khmer.svg?branch=master)](https://travis-ci.org/phannaly/php-datetime-khmer)  [![StyleCI](https://github.styleci.io/repos/165952860/shield?branch=master)](https://github.styleci.io/repos/165952860)
 
@@ -43,7 +43,7 @@ $khmer->convert($date)->getDate();
 ```
 ### Available methods
 
-This library accept to date format
+This library accept two date format
 
 ```php
 $date = '2019-01-22'; // Y-m-d
