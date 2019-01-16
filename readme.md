@@ -43,6 +43,15 @@ $khmer->convert($date)->getDate();
 ```
 ### Available methods
 
+This library accept to date format
+
+```php
+$date = '2019-01-22'; // Y-m-d
+// and
+$date = '2019/01/22'; // Y/m/d
+```
+Some useful method in this library.
+
 ```php
 $khmer = new KhmerDatetime;
 $date = '2019-01-22';
@@ -60,7 +69,11 @@ $date = '2019/01/22'; // forward slash format
 $khmer->convert($date)->getDate();
 // Output: ២០១៩/មករា/២២
  
-$date = '2019/01/22'; // forward slash format
+$date = '2019-01-22'; // dash format
+$khmer->convert($date)->getDate();
+// Output: ២០១៩-មករា-២២
+ 
+$date = '2019/01/22'; // Reverse from Y/m/d to d/m/Y
 $khmer->convert($date)->getDate('reverse');
 // Output: ២២/មករា/២០១៩
 
