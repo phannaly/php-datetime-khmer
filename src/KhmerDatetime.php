@@ -48,20 +48,6 @@ class KhmerDatetime
     }
 
     /**
-     * Get full month name in Khmer.
-     *
-     * @return string
-     */
-    public function getFullDayName()
-    {
-        $day = date('l', strtotime($this->date));
-
-        $dayIndex = array_search($day, $this->getStardardFullDaysName());
-
-        return $this->getKhmerFullDaysName()[$dayIndex];
-    }
-
-    /**
      * Get full day name in Khmer.
      *
      * @return string
