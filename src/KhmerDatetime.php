@@ -44,7 +44,6 @@ class KhmerDatetime
 
         $monthIndex = array_search($month, $this->internationalMonth);
 
-
         return $this->khmerMonth[$monthIndex];
     }
 
@@ -152,8 +151,6 @@ class KhmerDatetime
 
         return $this->getFullYear().$sign.$this->getFullMonth().$sign.$this->getFullDay();
     }
-
-
 
     /**
      * Get khmer number from 0 to 9.
