@@ -34,15 +34,17 @@ class KhmerDatetime
     }
 
     /**
-     * Immediately given date with static method
+     * Immediately given date with static method.
      *
-     * @param  string $date
+     * @param string $date
+     *
      * @return static
      */
-    public static function with($date) 
+    public static function with($date)
     {
         return new static($date);
     }
+
     /**
      * Get full month name in Khmer.
      *
