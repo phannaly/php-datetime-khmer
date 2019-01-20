@@ -23,7 +23,7 @@ class KhmerDatetime
      */
     public $date;
 
-    public function convert($date)
+    public function __construct($date)
     {
         $this->date = $date;
         $this->khmerMonth = $this->getKhmerMonths();
@@ -33,6 +33,16 @@ class KhmerDatetime
         return $this;
     }
 
+    /**
+     * Immediately given date with static method
+     *
+     * @param  string $date
+     * @return static
+     */
+    public static function with($date) 
+    {
+        return new static($date);
+    }
     /**
      * Get full month name in Khmer.
      *

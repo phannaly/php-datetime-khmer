@@ -8,8 +8,8 @@ class KhmerDatetimeTest extends \PHPUnit\Framework\TestCase
 
     public function setUp()
     {
-        $date = date('2019-01-22');
-        $this->khmer = (new KhmerDatetime())->convert($date);
+        $date = '2019-01-22';
+        $this->khmer = new KhmerDatetime($date);
     }
 
     public function test_get_full_month_in_khmer()
@@ -35,7 +35,7 @@ class KhmerDatetimeTest extends \PHPUnit\Framework\TestCase
     public function test_check_forward_slash_format()
     {
         $date = date('2019/01/22');
-        $khmer = (new KhmerDatetime())->convert($date);
+        $khmer = new KhmerDatetime($date);
 
         $this->assertFalse($this->khmer->isForwardSlah());
         $this->assertTrue($khmer->isForwardSlah());
@@ -51,11 +51,18 @@ class KhmerDatetimeTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('២២-មករា-២០១៩', $this->khmer->getDate('revers'));
     }
 
+    public function test_with_static_method()
+    {
+        $date = date('2019-01-22');
+        $khmer = KhmerDatetime::with($date);
+        $this->assertEquals('២០១៩-មករា-២២', $khmer->getDate());
+    }
+
     public function test_throw_exception_when_wrong_format()
     {
         $this->expectException(\Exception::class);
 
         $date = date('2019\01\22');
-        $khmer = (new KhmerDatetime())->convert($date)->getDate();
+        $khmer = (new KhmerDatetime($date))->getDate();
     }
 }
