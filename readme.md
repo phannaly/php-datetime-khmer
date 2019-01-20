@@ -26,21 +26,23 @@ Whenever you want to convert any datetime into Khmer language, just wrap it insi
 
 Firstly, you can import or instance class
 ```php
+// Using import namespace
 use Phanna\Converter\KhmerDatetime;
-....
-$khmer = new Phanna\Converter\KhmerDatetime;
+
+// Using fully-qualified class name
+$khmer = new Phanna\Converter\KhmerDatetime($date);
 ```
 
 After that you can you following method below.
 
 ```php
-$khmer = new KhmerDatetime;
-$date = date('Y-m-d'); // or specific date that you want
-// Example output 2019-01-22
+$date = '2019-01-22'; // or specific date that you want
+$khmer = new KhmerDatetime($date);
 
-$khmer->convert($date)->getDate();
+$khmer->getDate();
 // Output: ២០១៩-មករា-២២
 ```
+
 ### Available methods
 
 This library accept two date format
@@ -50,33 +52,44 @@ $date = '2019-01-22'; // Y-m-d
 // and
 $date = '2019/01/22'; // Y/m/d
 ```
-Some useful method in this library.
+There are two way of converting date
+    - One is passing date through constructor
+    - Second use date with static method
 
 ```php
-$khmer = new KhmerDatetime;
 $date = '2019-01-22';
 
-$khmer->convert($date)->getFullMonth();
+// With constructor
+$khmer = new KhmerDatetime($date);
+
+// With static method
+$khmer = KhmerDatetime::with($date);
+
+$khmer->getFullMonth();
 // Output: មករា
 
-$khmer->convert($date)->getFullYear();
+$khmer->getFullYear();
 // Output: ២០១៩
 
-$khmer->convert($date)->getFullDay();
+$khmer->getFullDay();
 // Output: ២២
 
 $date = '2019/01/22'; // forward slash format
-$khmer->convert($date)->getDate();
+$khmer->getDate();
 // Output: ២០១៩/មករា/២២
  
 $date = '2019-01-22'; // dash format
-$khmer->convert($date)->getDate();
+$khmer->getDate();
 // Output: ២០១៩-មករា-២២
  
 $date = '2019/01/22'; // Reverse from Y/m/d to d/m/Y
-$khmer->convert($date)->getDate('reverse');
+$khmer->getDate('reverse');
 // Output: ២២/មករា/២០១៩
 
+// Or wrap it in one line
+$date = '2019/01/22';
+KhmerDatetime::with($date)->getDate();
+// Output: ២០១៩/មករា/២២
 ```
 
 ## Contributing
