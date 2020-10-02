@@ -74,21 +74,20 @@ $khmer->getFullYear();
 $khmer->getFullDay();
 // Output: ២២
 
-$date = '2019/01/22'; // forward slash format
+$khmer = new KhmerDatetime('2019/01/22'); // forward slash format
 $khmer->getDate();
 // Output: ២០១៩/មករា/២២
  
-$date = '2019-01-22'; // dash format
+$khmer = new KhmerDatetime('2019-01-22'); // dash format
 $khmer->getDate();
 // Output: ២០១៩-មករា-២២
  
-$date = '2019/01/22'; // Reverse from Y/m/d to d/m/Y
+$khmer = new KhmerDatetime('2019/01/22'); // Reverse from Y/m/d to d/m/Y
 $khmer->getDate('reverse');
 // Output: ២២/មករា/២០១៩
 
 // Or wrap it in one line
-$date = '2019/01/22';
-KhmerDatetime::with($date)->getDate();
+KhmerDatetime::with('2019/01/22')->getDate();
 // Output: ២០១៩/មករា/២២
 ```
 

@@ -48,7 +48,7 @@ class KhmerDatetimeTest extends \PHPUnit\Framework\TestCase
 
     public function test_get_reverse_date_in_khmer()
     {
-        $this->assertEquals('២២-មករា-២០១៩', $this->khmer->getDate('revers'));
+        $this->assertEquals('២២-មករា-២០១៩', $this->khmer->getDate('reverse'));
     }
 
     public function test_with_static_method()

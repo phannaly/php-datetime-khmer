@@ -91,18 +91,18 @@ class KhmerDatetime
     /**
      * Get date base on format.
      *
-     * @param string $revers
+     * @param string $reverse
      *
      * @return string
      */
-    public function getDate($revers = null)
+    public function getDate($reverse = null)
     {
         if ($this->isForwardSlah($this->date)) {
-            return $this->getForwardSlahFormat($revers);
+            return $this->getForwardSlahFormat($reverse);
         }
 
         if ($this->isDash($this->date)) {
-            return $this->getDashFormat($revers);
+            return $this->getDashFormat($reverse);
         }
 
         throw new \Exception('Undefined date format');
@@ -133,9 +133,9 @@ class KhmerDatetime
      *
      * @return string
      */
-    public function getForwardSlahFormat($revers)
+    public function getForwardSlahFormat($reverse)
     {
-        return $this->format('/', $revers);
+        return $this->format('/', $reverse);
     }
 
     /**
@@ -143,9 +143,9 @@ class KhmerDatetime
      *
      * @return string
      */
-    public function getDashFormat($revers)
+    public function getDashFormat($reverse)
     {
-        return $this->format('-', $revers);
+        return $this->format('-', $reverse);
     }
 
     /**
@@ -155,9 +155,9 @@ class KhmerDatetime
      *
      * @return string
      */
-    public function format($sign, $revers)
+    public function format($sign, $reverse)
     {
-        if ($revers === 'revers') {
+        if ($reverse === 'reverse') {
             return $this->getFullDay().$sign.$this->getFullMonth().$sign.$this->getFullYear();
         }
 
