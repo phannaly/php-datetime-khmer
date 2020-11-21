@@ -95,6 +95,11 @@ class KhmerDateTime
         return $this->data->numbers(date('d', $this->date));
     }
 
+    /**
+     * Get full day name in Khmer
+     *
+     * @return string
+     */
     public function fullDay()
     {
         return $this->data->days(date('w', $this->date));
