@@ -1,42 +1,77 @@
 <?php
 
-namespace Phanna\Converter;
+namespace KhmerDateTime;
 
 use DateTime;
 use Exception;
 
+date_default_timezone_set("Asia/Phnom_Penh");
+
 class KhmerDateTime
 {
-    /**
-     * @var array
-     */
-    private $khmerNumber = [];
-    /**
-     * @var array
-     */
-    private $internationalMonth = [];
-    /**
-     * @var array
-     */
-    private $khmerMonth = [];
     /**
      * @var Date
      */
     public $date;
     /**
-     * @var Data
+     * @var Config
      */
     private $data;
+    /**
+     * @var string
+     */
+    private $sign;
 
     public function __construct()
     {
-        $this->data = new Data();
+        $this->data = new Config();
         return $this;
     }
 
+    /**
+     * Parse the datetime in String format
+     *
+     * @param $date
+     * @return static
+     * @throws Exception
+     */
+    public static function parse($date) {
+        $instance = new static();
+        $instance->date = strtotime($date);
+
+        if ($instance->isForwardSlash($date)) {
+            $instance->sign = "/";
+        } elseif ($instance->isDash($date)) {
+            $instance->sign = "-";
+        } else {
+            throw new Exception('Undefined date format');
+        }
+
+        return $instance;
+    }
+
+    /**
+     * Use current timestamp
+     *
+     * @return KhmerDateTime
+     */
     public static function now()
     {
-        return new Now();
+        $instance = new static();
+        $instance->date = strtotime(date("Y-m-d"));
+
+        return $instance;
+    }
+
+    /**
+     * Get month in Khmer.
+     *
+     * @return string
+     */
+    public function month()
+    {
+        $month = date('m', $this->date);
+        return $this->data->numbers($month);
     }
 
     /**
@@ -44,27 +79,25 @@ class KhmerDateTime
      *
      * @return string
      */
-    public function month()
+    public function fullMonth()
     {
-        $month = date('n', strtotime($this->date));
+        $month = date('n', $this->date);
         return $this->data->months($month);
     }
 
     /**
-     * Get full day name in Khmer.
+     * Get day in Khmer.
      *
      * @return string
      */
     public function day()
     {
-        $dayOfMonth = date('d', strtotime($this->date));
-        return $this->data->numbers($dayOfMonth);
+        return $this->data->numbers(date('d', $this->date));
     }
 
-    public function dayName()
+    public function fullDay()
     {
-        $dayOfMonth = date('w', strtotime($this->date));
-        return $this->data->days($dayOfMonth);
+        return $this->data->days(date('w', $this->date));
     }
 
     /**
@@ -74,90 +107,53 @@ class KhmerDateTime
      */
     public function year()
     {
-        return $this->data->numbers(date('Y', strtotime($this->date)));
+        return $this->data->numbers(date('Y', $this->date));
     }
 
     /**
      * Get date base on format.
      *
-     * @param string $reverse
-     *
+     * @param null $format
      * @return string
      * @throws Exception
      */
-    public function date($reverse = null)
+    public function date($format = null)
     {
-        if ($this->isForwardSlash()) {
-            return $this->forwardSlash($reverse);
+        if ($format == "long") {
+            return "ថ្ងៃ".$this->fullDay()." ទី".$this->day()." ខែ".$this->fullMonth()." ឆ្នាំ".$this->year();
+        }
+        if ($format == "short") {
+            return $this->day()." ".$this->fullMonth()." ".$this->year();
+        }
+        if ($format == "forward") {
+            return $this->day()."/".$this->month()."/".$this->year();
+        }
+        if ($format == "dash") {
+            return $this->day()."-".$this->month()."-".$this->year();
         }
 
-        if ($this->isDash()) {
-            return $this->getDashFormat($reverse);
-        }
-
-        throw new Exception('Undefined date format');
+        return implode(" ", [$this->fullDay(), $this->day(), $this->fullMonth(), $this->year()]);
     }
 
     /**
      * Checking if given date is a forward slash format.
      *
+     * @param $date
      * @return bool
      */
-    public function isForwardSlash()
+    private function isForwardSlash($date)
     {
-        return is_object(DateTime::createFromFormat('Y/m/d', $this->date));
+        return is_object(DateTime::createFromFormat('Y/m/d', $date));
     }
 
     /**
      * Checking if given date is a dash format.
      *
+     * @param $date
      * @return bool
      */
-    public function isDash()
+    private function isDash($date)
     {
-        return is_object(DateTime::createFromFormat('Y-m-d', $this->date));
-    }
-
-    /**
-     * Get date in khmer format as Y/m/d.
-     *
-     * @param $reverse
-     * @return string
-     */
-    public function forwardSlash($reverse)
-    {
-        return $this->format('/', $reverse);
-    }
-
-    /**
-     * Get date in khmer format as Y-m-d.
-     *
-     * @return string
-     */
-    public function getDashFormat($reverse)
-    {
-        return $this->format('-', $reverse);
-    }
-
-    /**
-     * Return given date format.
-     *
-     * @param string $sign
-     *
-     * @return string
-     */
-    public function format($sign, $reverse)
-    {
-        if ($reverse === 'reverse') {
-            return $this->day().$sign.$this->month().$sign.$this->year();
-        }
-
-        return $this->year().$sign.$this->month().$sign.$this->day();
-    }
-
-    public function parse($date)
-    {
-        $this->date = $date;
-        return $this;
+        return is_object(DateTime::createFromFormat('Y-m-d', $date));
     }
 }

@@ -1,27 +1,27 @@
 <?php
 
+namespace KhmerDateTime;
 
-namespace Phanna\Converter;
-
-
-class Data
+class Config
 {
     private $numeric = [
-        0 => "០",
-        1 => "១",
-        2 => "២",
-        3 => "៣",
-        4 => "៤",
-        5 => "៥",
-        6 => "៦",
-        7 => "៧",
-        8 => "៨",
-        9 => "៩"
+        0 => '០',
+        1 => '១',
+        2 => '២',
+        3 => '៣',
+        4 => '៤',
+        5 => '៥',
+        6 => '៦',
+        7 => '៧',
+        8 => '៨',
+        9 => '៩'
     ];
-    private $days = ["ច័ន្ទ", "អង្គារ", "ពុធ", "ព្រហស្បតិ៍", "សុក្រ", "សៅរ៍", "អាទិត្យ"];
+    private $days = ['អាទិត្យ', 'ច័ន្ទ', 'អង្គារ', 'ពុធ', 'ព្រហស្បតិ៍', 'សុក្រ', 'សៅរ៍'];
     private $months = ['មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា', 'សីហា', 'កញ្ញា', 'តុលា', 'វិច្ឆិកា', 'ធ្នូ'];
 
     /**
+     * get Khmer day base on index
+     *
      * @param $day
      * @return string
      */
@@ -31,6 +31,8 @@ class Data
     }
 
     /**
+     * get Khmer month base on index
+     *
      * @param $month
      * @return string
      */
@@ -39,6 +41,8 @@ class Data
     }
 
     /**
+     * Convert English number to Khmer number
+     *
      * @param $number
      * @return string
      */
