@@ -7,7 +7,7 @@ date_default_timezone_set("Asia/Phnom_Penh");
 
 class KhmerDateTimeTest extends TestCase
 {
-    public function test_get_full_month_in_khmer()
+    public function test_khmer_date_time_parsing()
     {
         $dateTime = KhmerDateTime::parse('2019-01-22');
         $this->assertEquals('២២', $dateTime->day());

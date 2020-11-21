@@ -20,7 +20,7 @@ class Config
     private $months = ['មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា', 'សីហា', 'កញ្ញា', 'តុលា', 'វិច្ឆិកា', 'ធ្នូ'];
 
     /**
-     * get Khmer day base on index
+     * Get Khmer day base on index
      *
      * @param $day
      * @return string
@@ -31,7 +31,7 @@ class Config
     }
 
     /**
-     * get Khmer month base on index
+     * Get Khmer month base on index
      *
      * @param $month
      * @return string

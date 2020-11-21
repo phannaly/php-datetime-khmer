@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/phannaly/php-datetime-khmer.svg?branch=master)](https://travis-ci.org/phannaly/php-datetime-khmer)  [![StyleCI](https://github.styleci.io/repos/165952860/shield?branch=master)](https://github.styleci.io/repos/165952860)
 
-This is a small package for convert datetime to Khmer language.
+This is a small package for converting datetime to Khmer language.
 
 ## Requirements
 
@@ -14,7 +14,7 @@ You don't need to install by composer if your project doesn't have it.
 
 Just import it manually in `src` folder.
 
-But If you want to install by composer, please follow command below
+But If you want to install by a composer, please follow command below
 
     composer require phannaly/php-datetime-khmer
 
@@ -27,69 +27,42 @@ Whenever you want to convert any datetime into Khmer language, just wrap it insi
 Firstly, you can import or instance class
 ```php
 // Using import namespace
-use Phanna\Converter\KhmerDateTime;
-
-// Using fully-qualified class name
-$khmer = new Phanna\Converter\KhmerDateTime($date);
+use KhmerDateTime\KhmerDateTime;
 ```
 
-After that you can you following method below.
-
 ```php
-$date = '2019-01-22'; // or specific date that you want
-$khmer = new KhmerDatetime($date);
+//This library accepts two date formats when parsing.
 
-$khmer->getDate();
-// Output: ២០១៩-មករា-២២
-```
-
-### Available methods
-
-This library accept two date format
-
-```php
 $date = '2019-01-22'; // Y-m-d
 // and
 $date = '2019/01/22'; // Y/m/d
+
+$dateTime = KhmerDateTime::parse($date); // or specific date that you want
+
+$dateTime->day(); // ២២
+$dateTime->fullDay(); // អង្គារ
+$dateTime->month(); // ០១
+$dateTime->fullMonth(); // មករា
+$dateTime->year(); // ២០១៩
 ```
-There are two way of converting date
-    - One is passing date through constructor
-    - Second use date with static method
+
+You can access date with following format
 
 ```php
-$date = '2019-01-22';
+$dateTime = KhmerDateTime::parse('2019-01-22');
 
-// With constructor
-$khmer = new KhmerDatetime($date);
-
-// With static method
-$khmer = KhmerDatetime::with($date);
-
-$khmer->getFullMonth();
-// Output: មករា
-
-$khmer->getFullYear();
-// Output: ២០១៩
-
-$khmer->getFullDay();
-// Output: ២២
-
-$khmer = new KhmerDatetime('2019/01/22'); // forward slash format
-$khmer->getDate();
-// Output: ២០១៩/មករា/២២
- 
-$khmer = new KhmerDatetime('2019-01-22'); // dash format
-$khmer->getDate();
-// Output: ២០១៩-មករា-២២
- 
-$khmer = new KhmerDatetime('2019/01/22'); // Reverse from Y/m/d to d/m/Y
-$khmer->getDate('reverse');
-// Output: ២២/មករា/២០១៩
-
-// Or wrap it in one line
-KhmerDatetime::with('2019/01/22')->getDate();
-// Output: ២០១៩/មករា/២២
+$dateTime->date(); // អង្គារ ២២ មករា ២០១៩
+$dateTime->date("short"); // ២២ មករា ២០១៩
+$dateTime->date("dash"); // ២២-០១-២០១៩
+$dateTime->date("forward"); // ២២/០១/២០១៩
+$dateTime->date("long"); // ថ្ងៃអង្គារ ទី២២ ខែមករា ឆ្នាំ២០១៩
 ```
+
+Using the current timestamp without specific date
+
+```php
+$dateTime = KhmerDateTime::now();
+````
 
 ## Contributing
 
