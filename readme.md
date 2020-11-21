@@ -27,10 +27,10 @@ Whenever you want to convert any datetime into Khmer language, just wrap it insi
 Firstly, you can import or instance class
 ```php
 // Using import namespace
-use Phanna\Converter\KhmerDatetime;
+use Phanna\Converter\KhmerDateTime;
 
 // Using fully-qualified class name
-$khmer = new Phanna\Converter\KhmerDatetime($date);
+$khmer = new Phanna\Converter\KhmerDateTime($date);
 ```
 
 After that you can you following method below.
