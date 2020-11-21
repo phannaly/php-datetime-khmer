@@ -18,7 +18,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Phanna\\Converter\\": "src/"
+            "KhmerDateTime\\": "src/"
         }
     },
     "require-dev": {

@@ -1,69 +1,31 @@
 <?php
 
-use Phanna\Converter\KhmerDateTime;
-use Phanna\Converter\Now;
+use KhmerDateTime\KhmerDateTime;
 use PHPUnit\Framework\TestCase;
+
+date_default_timezone_set("Asia/Phnom_Penh");
 
 class KhmerDateTimeTest extends TestCase
 {
-    public $khmer;
-
-    public function setUp()
-    {
-        $date = '2019-01-22';
-        $this->khmer = (new KhmerDateTime)->parse($date);
-    }
-
     public function test_get_full_month_in_khmer()
     {
-        $this->assertEquals('មករា', $this->khmer->month());
-    }
-
-    public function test_get_full_day_in_khmer()
-    {
-        $this->assertEquals('២២', $this->khmer->day());
-    }
-
-    public function test_get_full_year_in_khmer()
-    {
-        $this->assertEquals('២០១៩', $this->khmer->year());
-    }
-
-    public function test_check_dash_format_date()
-    {
-        $this->assertTrue($this->khmer->isDash());
-    }
-
-    public function test_check_forward_slash_format()
-    {
-        $khmer = (new KhmerDateTime)->parse('2019/01/22');
-
-        $this->assertFalse($this->khmer->isForwardSlash());
-        $this->assertTrue($khmer->isForwardSlash());
-    }
-
-    public function test_get_date_in_khmer()
-    {
-        $this->assertEquals('២០១៩-មករា-២២', $this->khmer->date());
-    }
-
-    public function test_get_reverse_date_in_khmer()
-    {
-        $this->assertEquals('២២-មករា-២០១៩', $this->khmer->date('reverse'));
+        $dateTime = KhmerDateTime::parse('2019-01-22');
+        $this->assertEquals('២២', $dateTime->day());
+        $this->assertEquals('អង្គារ', $dateTime->fullDay());
+        $this->assertEquals('០១', $dateTime->month());
+        $this->assertEquals('មករា', $dateTime->fullMonth());
+        $this->assertEquals('២០១៩', $dateTime->year());
+        $this->assertEquals("អង្គារ ២២ មករា ២០១៩", $dateTime->date());
+        $this->assertEquals("២២ មករា ២០១៩", $dateTime->date("short"));
+        $this->assertEquals("២២-០១-២០១៩", $dateTime->date("dash"));
+        $this->assertEquals("២២/០១/២០១៩", $dateTime->date("forward"));
+        $this->assertEquals("ថ្ងៃអង្គារ ទី២២ ខែមករា ឆ្នាំ២០១៩", $dateTime->date("long"));
     }
 
     public function test_throw_exception_when_wrong_format()
     {
         $this->expectException(\Exception::class);
 
-        (new KhmerDateTime)->parse('2019\01\22')->date();
-    }
-
-    public function test_get_reverse_date_in_khme()
-    {
-        $dt = (new KhmerDateTime())->parse("2020/12/22");
-        $nameOfDay = new Now($dt);
-        var_dump($nameOfDay->format());
-//        $this->assertEquals('២២-មករា-២០១៩', $this->khmer->date('reverse'));
+        (new KhmerDateTime)->parse('2019\01\22');
     }
 }
