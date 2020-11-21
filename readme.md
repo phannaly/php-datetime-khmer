@@ -1,6 +1,7 @@
 # The PHP libray for convert datetime into Khmer
 
-[![Build Status](https://travis-ci.org/phannaly/php-datetime-khmer.svg?branch=master)](https://travis-ci.org/phannaly/php-datetime-khmer)  [![StyleCI](https://github.styleci.io/repos/165952860/shield?branch=master)](https://github.styleci.io/repos/165952860)
+[![Actions Status](https://github.com/phannaly/php-datetime-khmer/workflows/Build/badge.svg)](https://github.com/phannaly/php-datetime-khmer/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This is a small package for converting datetime to Khmer language.
 
