@@ -131,7 +131,46 @@ class KhmerDateTime
      * @return string
      */
     public function meridiem() {
-        return  $this->config->meridiem[date('a', $this->dateTime)];
+        return $this->config->meridiem[date('a', $this->dateTime)];
+    }
+
+    /**
+     * Get week of month
+     *
+     * @return string
+     */
+    public function week() {
+        // https://stackoverflow.com/a/32624747/4345720
+        $firstOfMonth = strtotime(date("Y-m-01", $this->dateTime));
+        $weekOfMonth = (date("W", $this->dateTime) - date("W", $firstOfMonth)) + 1;
+
+        return $this->config->numbers($weekOfMonth);
+    }
+
+    /**
+     * Get full week of months
+     *
+     * @return string
+     */
+    public function fullWeek() {
+        return "សប្តាហ៍ទី".$this->week();
+    }
+
+    /**
+     * Get week of year
+     *
+     * @return string
+     */
+    public function weekOfYear() {
+        return $this->config->numbers((int) date("W", $this->dateTime));
+    }
+
+    /**
+     * Get full week of year
+     * @return string
+     */
+    public function fullWeekOfYear() {
+        return "សប្តាហ៍ទី".$this->weekOfYear();
     }
 
     /**
