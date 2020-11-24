@@ -33,16 +33,20 @@ use KhmerDateTime\KhmerDateTime;
 You have to parse a valid string datetime format and without specific time, it will set time to 00:00
 
 ```php
-$dateTime = KhmerDateTime::parse('2019-01-22');
+$dateTime = KhmerDateTime::parse('2019-05-22');
 
 $dateTime->day(); // ២២
-$dateTime->fullDay(); // អង្គារ
-$dateTime->month(); // ០១
-$dateTime->fullMonth(); // មករា
+$dateTime->fullDay(); // ពុធ
+$dateTime->month(); // ០៥
+$dateTime->fullMonth(); // ឧសភា
 $dateTime->year(); // ២០១៩
 $dateTime->minute(); // ០០
 $dateTime->hour(); // ០០
 $dateTime->meridiem(); // ព្រឹក
+$dateTime->week(); // ៤
+$dateTime->fullWeek(); // សប្តាហ៍ទី៤
+$dateTime->weekOfYear(); // ២១
+$dateTime->fullWeekOfYear(); // សប្តាហ៍ទី២១
 ```
 
 For example:
@@ -59,7 +63,7 @@ will producing result below
 | `$dateTime->format("LLT")`   | `LLT`     | `២០ កញ្ញា ២០២០ ១២:៤០ ល្ងាច` |
 | `$dateTime->format("LLL")`   | `LLL`     | `អាទិត្យ ២០ កញ្ញា ២០២០` |
 | `$dateTime->format("LLLT")`  | `LLLT`    | `អាទិត្យ ២០ កញ្ញា ២០២០ ១២:៤០ ល្ងាច` |
-| `$dateTime->format("LLLLT")` | `LLLL`    | `ថ្ងៃទិត្យ ទី២០ ខែកញ្ញា ឆ្នាំ២០២០` |
+| `$dateTime->format("LLLLT")` | `LLLL`    | `ថ្ងៃអាទិត្យ ទី២០ ខែកញ្ញា ឆ្នាំ២០២០` |
 | `$dateTime->format("LLLLT")` | `LLLLT`   | `ថ្ងៃអាទិត្យ ទី២០ ខែកញ្ញា ឆ្នាំ២០២០ ១២:៤០ ល្ងាច` |
 
 

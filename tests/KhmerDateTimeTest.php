@@ -9,16 +9,20 @@ class KhmerDateTimeTest extends TestCase
 {
     public function test_khmer_date_time_parsing_without_time()
     {
-        $dateTime = KhmerDateTime::parse('2019-01-22');
+        $dateTime = KhmerDateTime::parse('2019-05-22');
 
         $this->assertEquals('២២', $dateTime->day());
-        $this->assertEquals('អង្គារ', $dateTime->fullDay());
-        $this->assertEquals('០១', $dateTime->month());
-        $this->assertEquals('មករា', $dateTime->fullMonth());
+        $this->assertEquals('ពុធ', $dateTime->fullDay());
+        $this->assertEquals('០៥', $dateTime->month());
+        $this->assertEquals('ឧសភា', $dateTime->fullMonth());
         $this->assertEquals('២០១៩', $dateTime->year());
         $this->assertEquals('០០', $dateTime->hour());
         $this->assertEquals('០០', $dateTime->minute());
         $this->assertEquals('ព្រឹក', $dateTime->meridiem());
+        $this->assertEquals('៤', $dateTime->week());
+        $this->assertEquals('សប្តាហ៍ទី៤', $dateTime->fullWeek());
+        $this->assertEquals('២១', $dateTime->weekOfYear());
+        $this->assertEquals('សប្តាហ៍ទី២១', $dateTime->fullWeekOfYear());
     }
 
     public function test_khmer_date_time_parsing_format_with_time()
