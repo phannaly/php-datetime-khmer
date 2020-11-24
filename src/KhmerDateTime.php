@@ -2,17 +2,15 @@
 
 namespace KhmerDateTime;
 
-use DateTime;
 use Exception;
 
 date_default_timezone_set("Asia/Phnom_Penh");
 
 class KhmerDateTime
 {
-    /**
-     * @var Date
-     */
-    public $date;
+    use Format;
+
+    public $dateTime;
     /**
      * @var Config
      */
@@ -20,26 +18,26 @@ class KhmerDateTime
     /**
      * @var string
      */
-    private $sign;
 
     public function __construct()
     {
         $this->config = new Config();
+        $this->dateTime = strtotime(date("Y-m-d H:i"));
         return $this;
     }
 
     /**
      * Parse the datetime in String format
      *
-     * @param $date
+     * @param $dateTime
      * @return static
      * @throws Exception
      */
-    public static function parse($date) {
+    public static function parse($dateTime) {
         $instance = new static();
-        $instance->date = strtotime($date);
+        $instance->dateTime = strtotime($dateTime);
 
-        if (!$instance->date) {
+        if (!$instance->dateTime) {
             throw new Exception('Undefined date format');
         }
 
@@ -53,10 +51,7 @@ class KhmerDateTime
      */
     public static function now()
     {
-        $instance = new static();
-        $instance->date = strtotime(date("Y-m-d"));
-
-        return $instance;
+        return new static();
     }
 
     /**
@@ -66,8 +61,7 @@ class KhmerDateTime
      */
     public function month()
     {
-        $month = date('m', $this->date);
-        return $this->config->numbers($month);
+        return $this->config->numbers(date('m', $this->dateTime));
     }
 
     /**
@@ -77,8 +71,7 @@ class KhmerDateTime
      */
     public function fullMonth()
     {
-        $month = date('n', $this->date);
-        return $this->config->months($month);
+        return $this->config->months(date('n', $this->dateTime));
     }
 
     /**
@@ -88,7 +81,7 @@ class KhmerDateTime
      */
     public function day()
     {
-        return $this->config->numbers(date('d', $this->date));
+        return $this->config->numbers(date('d', $this->dateTime));
     }
 
     /**
@@ -98,7 +91,7 @@ class KhmerDateTime
      */
     public function fullDay()
     {
-        return $this->config->days(date('w', $this->date));
+        return $this->config->days(date('w', $this->dateTime));
     }
 
     /**
@@ -108,7 +101,7 @@ class KhmerDateTime
      */
     public function year()
     {
-        return $this->config->numbers(date('Y', $this->date));
+        return $this->config->numbers(date('Y', $this->dateTime));
     }
 
     /**
@@ -118,7 +111,7 @@ class KhmerDateTime
      */
     public function hour()
     {
-        $hour = date('H', $this->date);
+        $hour = date('H', $this->dateTime);
         return $this->config->numbers($hour);
     }
 
@@ -129,7 +122,7 @@ class KhmerDateTime
      */
     public function minute()
     {
-        return $this->config->numbers(date('i', $this->date));
+        return $this->config->numbers(date('i', $this->dateTime));
     }
 
     /**
@@ -138,27 +131,22 @@ class KhmerDateTime
      * @return string
      */
     public function meridiem() {
-        return  $this->config->meridiem[date('a', $this->date)];
+        return  $this->config->meridiem[date('a', $this->dateTime)];
     }
 
+    /**
+     * Return dateTime base on format
+     *
+     * @param $format
+     * @return mixed
+     * @throws Exception
+     */
     public function format($format)
     {
         try {
-            return $this->availableFormats()[$format];
+            return $this->dateTimeFormat($format);
         } catch (Exception $e) {
             throw new Exception("Invalid format");
         }
-    }
-
-    public function availableFormats() {
-        return [
-            'L' => $this->day()."/".$this->month()."/".$this->year(),
-            'LL' => $this->day()." ".$this->fullMonth()." ".$this->year(),
-            'LLT' => $this->day()." ".$this->fullMonth()." ".$this->year()." ".$this->hour().":".$this->minute()." ".$this->meridiem(),
-            'LLL' => $this->fullDay()." ".$this->day()." ".$this->fullMonth()." ".$this->year(),
-            'LLLT' => $this->fullDay()." ".$this->day()." ".$this->fullMonth()." ".$this->year()." ".$this->hour().":".$this->minute()." ".$this->meridiem(),
-            'LLLL' => "ថ្ងៃ".$this->fullDay()." ទី".$this->day()." ខែ".$this->fullMonth()." ឆ្នាំ".$this->year(),
-            'LLLLT' => "ថ្ងៃ".$this->fullDay()." ទី".$this->day()." ខែ".$this->fullMonth()." ឆ្នាំ".$this->year()." ".$this->hour().":".$this->minute()." ".$this->meridiem(),
-        ];
     }
 }

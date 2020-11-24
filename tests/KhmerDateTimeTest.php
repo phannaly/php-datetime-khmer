@@ -24,7 +24,6 @@ class KhmerDateTimeTest extends TestCase
     public function test_khmer_date_time_parsing_format_with_time()
     {
         $dateTime = KhmerDateTime::parse('2020-09-20 12:40');
-        $this->assertEquals("អាទិត្យ ២០ កញ្ញា ២០២០", $dateTime->date());
         $this->assertEquals("២០/០៩/២០២០", $dateTime->format("L"));
         $this->assertEquals("២០ កញ្ញា ២០២០", $dateTime->format("LL"));
         $this->assertEquals("២០ កញ្ញា ២០២០ ១២:៤០ ល្ងាច", $dateTime->format("LLT"));

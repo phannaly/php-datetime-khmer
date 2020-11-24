@@ -27,42 +27,48 @@ Whenever you want to convert any datetime into Khmer language, just wrap it insi
 
 Firstly, you can import or instance class
 ```php
-// Using import namespace
 use KhmerDateTime\KhmerDateTime;
 ```
 
+You have to parse a valid string datetime format and without specific time, it will set time to 00:00
+
 ```php
-//This library accepts two date formats when parsing.
-
-$date = '2019-01-22'; // Y-m-d
-// and
-$date = '2019/01/22'; // Y/m/d
-
-$dateTime = KhmerDateTime::parse($date); // or specific date that you want
+$dateTime = KhmerDateTime::parse('2019-01-22');
 
 $dateTime->day(); // ២២
 $dateTime->fullDay(); // អង្គារ
 $dateTime->month(); // ០១
 $dateTime->fullMonth(); // មករា
 $dateTime->year(); // ២០១៩
+$dateTime->minute(); // ០០
+$dateTime->hour(); // ០០
+$dateTime->meridiem(); // ព្រឹក
 ```
 
-You can access date with following format
-
+For example:
 ```php
-$dateTime = KhmerDateTime::parse('2019-01-22');
-
-$dateTime->date(); // អង្គារ ២២ មករា ២០១៩
-$dateTime->date("short"); // ២២ មករា ២០១៩
-$dateTime->date("dash"); // ២២-០១-២០១៩
-$dateTime->date("forward"); // ២២/០១/២០១៩
-$dateTime->date("long"); // ថ្ងៃអង្គារ ទី២២ ខែមករា ឆ្នាំ២០១៩
+$dateTime = KhmerDateTime::parse('2020-09-20 12:40');
 ```
 
-Using the current timestamp without specific date
+will producing result below
+
+| Code                         | Format    | Output  |
+| --------------------------   |:---------:| -----:|
+| `$dateTime->format("L")`     | `L`       | `២០/០៩/២០២០` |
+| `$dateTime->format("LL")`    | `LL`      | `២០ កញ្ញា ២០២០` |
+| `$dateTime->format("LLT")`   | `LLT`     | `២០ កញ្ញា ២០២០ ១២:៤០ ល្ងាច` |
+| `$dateTime->format("LLL")`   | `LLL`     | `អាទិត្យ ២០ កញ្ញា ២០២០` |
+| `$dateTime->format("LLLT")`  | `LLLT`    | `អាទិត្យ ២០ កញ្ញា ២០២០ ១២:៤០ ល្ងាច` |
+| `$dateTime->format("LLLLT")` | `LLLL`    | `ថ្ងៃទិត្យ ទី២០ ខែកញ្ញា ឆ្នាំ២០២០` |
+| `$dateTime->format("LLLLT")` | `LLLLT`   | `ថ្ងៃអាទិត្យ ទី២០ ខែកញ្ញា ឆ្នាំ២០២០ ១២:៤០ ល្ងាច` |
+
+
+Using the current timestamp without specific date and time
 
 ```php
 $dateTime = KhmerDateTime::now();
+// or 
+$dateTime = new KhmerDateTime();
 ````
 
 ## Contributing
