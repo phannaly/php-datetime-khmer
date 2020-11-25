@@ -126,6 +126,27 @@ class KhmerDateTime
     }
 
     /**
+     * Get quarter in Khmer
+     *
+     * @return string
+     */
+    public function quarter()
+    {
+        $month = date('m', $this->dateTime);
+        return $this->config->numbers(ceil($month / 3));
+    }
+
+    /**
+     * Get quarter in Khmer
+     *
+     * @return string
+     */
+    public function fullQuarter()
+    {
+        return "ត្រីមាសទី".$this->quarter();
+    }
+
+    /**
      * Get time meridiem
      *
      * @return string

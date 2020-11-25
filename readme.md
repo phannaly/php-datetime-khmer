@@ -47,6 +47,8 @@ $dateTime->week(); // ៤
 $dateTime->fullWeek(); // សប្តាហ៍ទី៤
 $dateTime->weekOfYear(); // ២១
 $dateTime->fullWeekOfYear(); // សប្តាហ៍ទី២១
+$dateTime->quarter(); // ២
+$dateTime->fullQuarter(); // ត្រីមាសទី២
 ```
 
 For example:

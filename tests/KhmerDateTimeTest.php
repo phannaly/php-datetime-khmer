@@ -23,6 +23,8 @@ class KhmerDateTimeTest extends TestCase
         $this->assertEquals('សប្តាហ៍ទី៤', $dateTime->fullWeek());
         $this->assertEquals('២១', $dateTime->weekOfYear());
         $this->assertEquals('សប្តាហ៍ទី២១', $dateTime->fullWeekOfYear());
+        $this->assertEquals('២', $dateTime->quarter());
+        $this->assertEquals('ត្រីមាសទី២', $dateTime->fullQuarter());
     }
 
     public function test_khmer_date_time_parsing_format_with_time()
