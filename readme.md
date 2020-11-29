@@ -68,6 +68,17 @@ will producing result below
 | `$dateTime->format("LLLLT")` | `LLLL`    | `ថ្ងៃអាទិត្យ ទី២០ ខែកញ្ញា ឆ្នាំ២០២០` |
 | `$dateTime->format("LLLLT")` | `LLLLT`   | `ថ្ងៃអាទិត្យ ទី២០ ខែកញ្ញា ឆ្នាំ២០២០ ១២:៤០ ល្ងាច` |
 
+If you wanna use date time duration in Khmer, you can use `fromNow()` method that check the date that you parse compare with your current timestamp.
+
+Assume that you parse the past timestamp
+
+| Code                                                   | Current timestamp    | Output  |
+| -------------------------------------------------------|:--------------------:| -------:|
+| `KhmerDateTime::parse('2020-09-20')->fromNow()`        | `2012-10-20`         | `៧ ឆ្នាំមុន` |
+| `KhmerDateTime::parse('2020-03-20')->fromNow()`        | `2020-09-20`         | `៦ ខែមុន` |
+| `KhmerDateTime::parse('2020-09-15')->fromNow()`        | `2020-09-20`         | `៥ ថ្ងៃមុន` |
+| `KhmerDateTime::parse('2020-09-15 02:00')->fromNow()`  | `2020-09-15 06:00`   | `៤ ម៉ោងមុន` |
+| `KhmerDateTime::parse('2020-09-15 06:00')->fromNow()`  | `2020-09-15 06:03`   | `៣ នាទីមុន` |
 
 Using the current timestamp without specific date and time
 
