@@ -43,7 +43,7 @@ class KhmerDateTimeTest extends TestCase
     {
         $this->expectException(\Exception::class);
 
-        (new KhmerDateTime)->parse('2019\01\22');
+        KhmerDateTime::parse('2019\01\22');
     }
 
     public function test_throw_exception_when_parsing_incorrect_format()
@@ -51,5 +51,49 @@ class KhmerDateTimeTest extends TestCase
         $this->expectException(\Exception::class);
 
         KhmerDateTime::parse('2020-09-20 12:40')->format("other");
+    }
+
+    public function test_date_time_from_now_ago_in_year()
+    {
+        $now = new DateTime("2020-09-20");
+        $dateTime = KhmerDateTime::parse('2012-10-20');
+        $interval = $dateTime->toDateTimeFormat()->diff($now);
+
+        $this->assertEquals("៧ ឆ្នាំមុន", $dateTime->ago($interval));
+    }
+    public function test_date_time_from_now_ago_in_month()
+    {
+        $now = new DateTime("2020-09-20");
+        $dateTime = KhmerDateTime::parse('2020-03-20');
+        $interval = $dateTime->toDateTimeFormat()->diff($now);
+
+        $this->assertEquals("៦ ខែមុន", $dateTime->ago($interval));
+    }
+
+    public function test_date_time_from_now_ago_in_day()
+    {
+        $now = new DateTime("2020-09-20");
+        $dateTime = KhmerDateTime::parse('2020-09-15');
+        $interval = $dateTime->toDateTimeFormat()->diff($now);
+
+        $this->assertEquals("៥ ថ្ងៃមុន", $dateTime->ago($interval));
+    }
+
+    public function test_date_time_from_now_ago_in_hour()
+    {
+        $now = new DateTime("2020-09-15 06:00");
+        $dateTime = KhmerDateTime::parse('2020-09-15 02:00');
+        $interval = $now->diff($dateTime->toDateTimeFormat());
+
+        $this->assertEquals("៤ ម៉ោងមុន", $dateTime->ago($interval));
+    }
+
+    public function test_date_time_from_now_ago_in_minute()
+    {
+        $now = new DateTime("2020-09-15 06:03");
+        $dateTime = KhmerDateTime::parse('2020-09-15 06:00');
+        $interval = $now->diff($dateTime->toDateTimeFormat());
+
+        $this->assertEquals("៣ នាទីមុន", $dateTime->ago($interval));
     }
 }

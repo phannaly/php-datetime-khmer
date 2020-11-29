@@ -3,6 +3,7 @@
 namespace KhmerDateTime;
 
 use Exception;
+use DateTime;
 
 date_default_timezone_set("Asia/Phnom_Penh");
 
@@ -33,11 +34,12 @@ class KhmerDateTime
      * @return static
      * @throws Exception
      */
-    public static function parse($dateTime) {
-        $instance = new static();
+    public static function parse($dateTime)
+    {
+        $instance = new static;
         $instance->dateTime = strtotime($dateTime);
 
-        if (!$instance->dateTime) {
+        if (! $instance->dateTime) {
             throw new Exception('Undefined date format');
         }
 
@@ -151,7 +153,8 @@ class KhmerDateTime
      *
      * @return string
      */
-    public function meridiem() {
+    public function meridiem()
+    {
         return $this->config->meridiem[date('a', $this->dateTime)];
     }
 
@@ -160,7 +163,8 @@ class KhmerDateTime
      *
      * @return string
      */
-    public function week() {
+    public function week()
+    {
         // https://stackoverflow.com/a/32624747/4345720
         $firstOfMonth = strtotime(date("Y-m-01", $this->dateTime));
         $weekOfMonth = (date("W", $this->dateTime) - date("W", $firstOfMonth)) + 1;
@@ -173,7 +177,8 @@ class KhmerDateTime
      *
      * @return string
      */
-    public function fullWeek() {
+    public function fullWeek()
+    {
         return "សប្តាហ៍ទី".$this->week();
     }
 
@@ -182,7 +187,8 @@ class KhmerDateTime
      *
      * @return string
      */
-    public function weekOfYear() {
+    public function weekOfYear()
+    {
         return $this->config->numbers((int) date("W", $this->dateTime));
     }
 
@@ -190,7 +196,8 @@ class KhmerDateTime
      * Get full week of year
      * @return string
      */
-    public function fullWeekOfYear() {
+    public function fullWeekOfYear()
+    {
         return "សប្តាហ៍ទី".$this->weekOfYear();
     }
 
@@ -208,5 +215,48 @@ class KhmerDateTime
         } catch (Exception $e) {
             throw new Exception("Invalid format");
         }
+    }
+
+    /**
+     * Return from now method
+     *
+     * @return string
+     */
+    public function fromNow()
+    {
+        $interval = (new DateTime)->diff($this->toDateTimeFormat());
+
+        return $this->ago($interval);
+    }
+    
+    /**
+     * Get fromNow template string
+     *
+     * @param  mixed $interval
+     * @param  mixed $suffix
+     * @return string
+     */
+    public function ago($interval)
+    {
+        // http://php.kambing.ui.ac.id/manual/en/datetime.diff.php#97880
+        $suffix = 'មុន';
+
+        if ($interval->y >= 1 ) return $this->config->numbers($interval->y).' ឆ្នាំ'.$suffix;
+        if ($interval->m >= 1 ) return $this->config->numbers($interval->m).' ខែ'.$suffix;
+        if ($interval->d >= 1 ) return $this->config->numbers($interval->d).' ថ្ងៃ'.$suffix;
+        if ($interval->h >= 1 ) return $this->config->numbers($interval->h).' ម៉ោង'.$suffix;
+        if ($interval->i >= 1 ) return $this->config->numbers($interval->i).' នាទី'.$suffix;
+        
+        return $this->config->numbers($interval->s).' វិនាទី'.$suffix;
+    }
+    
+    /**
+     * Get build-in DateTime format
+     *
+     * @return object
+     */
+    public function toDateTimeFormat()
+    {
+        return new DateTime(date("Y-m-d H:i", $this->dateTime));
     }
 }
