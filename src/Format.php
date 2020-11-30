@@ -1,8 +1,6 @@
 <?php
 
-
 namespace KhmerDateTime;
-
 
 trait Format
 {
@@ -12,7 +10,8 @@ trait Format
      * @param $format
      * @return mixed
      */
-    public function dateTimeFormat($format) {
+    private function dateTimeFormat($format)
+    {
         $formats = [
             'L' => $this->formatL(),
             'LL' => $this->formatLL(),
@@ -26,23 +25,28 @@ trait Format
         return $formats[$format];
     }
 
-    private function formatL() {
+    private function formatL()
+    {
         return $this->day()."/".$this->month()."/".$this->year();
     }
 
-    private function formatLL() {
+    private function formatLL()
+    {
         return $this->day()." ".$this->fullMonth()." ".$this->year();
     }
 
-    private function formatT() {
+    private function formatT()
+    {
         return $this->hour().":".$this->minute()." ".$this->meridiem();
     }
 
-    private function formatLLL() {
+    private function formatLLL()
+    {
         return $this->fullDay()." ".$this->day()." ".$this->fullMonth()." ".$this->year();
     }
 
-    private function formatLLLL() {
+    private function formatLLLL()
+    {
         return "ថ្ងៃ".$this->fullDay()." ទី".$this->day()." ខែ".$this->fullMonth()." ឆ្នាំ".$this->year();
     }
 }
