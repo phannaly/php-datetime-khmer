@@ -19,8 +19,8 @@ class Config
     private $days = ['អាទិត្យ', 'ច័ន្ទ', 'អង្គារ', 'ពុធ', 'ព្រហស្បតិ៍', 'សុក្រ', 'សៅរ៍'];
     private $months = ['មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា', 'សីហា', 'កញ្ញា', 'តុលា', 'វិច្ឆិកា', 'ធ្នូ'];
     public $meridiem = [
-        "am" => "ព្រឹក",
-        "pm" => "ល្ងាច"
+        'am' => 'ព្រឹក',
+        'pm' => 'ល្ងាច'
     ];
 
     /**
@@ -40,7 +40,8 @@ class Config
      * @param $month
      * @return string
      */
-    public function months($month) {
+    public function months($month)
+    {
         return $this->months[--$month];
     }
 
@@ -50,7 +51,8 @@ class Config
      * @param $number
      * @return string
      */
-    public function numbers($number) {
+    public function numbers($number)
+    {
         $num = array_map(function ($str) {
             return $this->numeric[$str];
         }, str_split($number));

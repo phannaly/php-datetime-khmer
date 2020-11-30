@@ -159,7 +159,7 @@ class KhmerDateTime
     }
 
     /**
-     * Get week of month
+     * Get week of the month in Khmer
      *
      * @return string
      */
@@ -173,7 +173,7 @@ class KhmerDateTime
     }
 
     /**
-     * Get full week of months
+     * Get full week of month in Khmer
      *
      * @return string
      */
@@ -183,7 +183,7 @@ class KhmerDateTime
     }
 
     /**
-     * Get week of year
+     * Get week of year in Khmer
      *
      * @return string
      */
@@ -193,7 +193,7 @@ class KhmerDateTime
     }
 
     /**
-     * Get full week of year
+     * Get full week of year in Khmer
      * @return string
      */
     public function fullWeekOfYear()
@@ -224,28 +224,37 @@ class KhmerDateTime
      */
     public function fromNow()
     {
-        $interval = (new DateTime)->diff($this->toDateTimeFormat());
-
-        return $this->ago($interval);
+        return $this->durationFrom(new DateTime());
     }
     
     /**
-     * Get fromNow template string
+     * Get duration from now template
      *
-     * @param  mixed $interval
-     * @param  mixed $suffix
+     * @param  mixed $now
      * @return string
      */
-    public function ago($interval)
+    public function durationFrom($now)
     {
-        // http://php.kambing.ui.ac.id/manual/en/datetime.diff.php#97880
-        $suffix = 'មុន';
+        $interval = $now->diff($this->toDateTimeFormat());
+        $suffix = $now > $this->toDateTimeFormat() ? 'មុន' : 'ទៀត';
 
-        if ($interval->y >= 1 ) return $this->config->numbers($interval->y).' ឆ្នាំ'.$suffix;
-        if ($interval->m >= 1 ) return $this->config->numbers($interval->m).' ខែ'.$suffix;
-        if ($interval->d >= 1 ) return $this->config->numbers($interval->d).' ថ្ងៃ'.$suffix;
-        if ($interval->h >= 1 ) return $this->config->numbers($interval->h).' ម៉ោង'.$suffix;
-        if ($interval->i >= 1 ) return $this->config->numbers($interval->i).' នាទី'.$suffix;
+        // http://php.kambing.ui.ac.id/manual/en/datetime.diff.php#97880
+
+        if ($interval->y >= 1) {
+            return $this->config->numbers($interval->y).' ឆ្នាំ'.$suffix;
+        }
+        if ($interval->m >= 1) {
+            return $this->config->numbers($interval->m).' ខែ'.$suffix;
+        }
+        if ($interval->d >= 1) {
+            return $this->config->numbers($interval->d).' ថ្ងៃ'.$suffix;
+        }
+        if ($interval->h >= 1) {
+            return $this->config->numbers($interval->h).' ម៉ោង'.$suffix;
+        }
+        if ($interval->i >= 1) {
+            return $this->config->numbers($interval->i).' នាទី'.$suffix;
+        }
         
         return $this->config->numbers($interval->s).' វិនាទី'.$suffix;
     }
@@ -255,7 +264,7 @@ class KhmerDateTime
      *
      * @return object
      */
-    public function toDateTimeFormat()
+    private function toDateTimeFormat()
     {
         return new DateTime(date("Y-m-d H:i", $this->dateTime));
     }
