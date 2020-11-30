@@ -222,9 +222,9 @@ class KhmerDateTime
      *
      * @return string
      */
-    public function fromNow()
+    public function fromNow($space = true)
     {
-        return $this->durationFrom(new DateTime());
+        return $this->durationFrom(new DateTime(), $space);
     }
     
     /**
@@ -233,30 +233,31 @@ class KhmerDateTime
      * @param  mixed $now
      * @return string
      */
-    public function durationFrom($now)
+    public function durationFrom($now, $space)
     {
         $interval = $now->diff($this->toDateTimeFormat());
         $suffix = $now > $this->toDateTimeFormat() ? 'មុន' : 'ទៀត';
+        $durationSpace = $space ? ' ' : '';
 
         // http://php.kambing.ui.ac.id/manual/en/datetime.diff.php#97880
 
         if ($interval->y >= 1) {
-            return $this->config->numbers($interval->y).' ឆ្នាំ'.$suffix;
+            return $this->config->numbers($interval->y).$durationSpace.'ឆ្នាំ'.$suffix;
         }
         if ($interval->m >= 1) {
-            return $this->config->numbers($interval->m).' ខែ'.$suffix;
+            return $this->config->numbers($interval->m).$durationSpace.'ខែ'.$suffix;
         }
         if ($interval->d >= 1) {
-            return $this->config->numbers($interval->d).' ថ្ងៃ'.$suffix;
+            return $this->config->numbers($interval->d).$durationSpace.'ថ្ងៃ'.$suffix;
         }
         if ($interval->h >= 1) {
-            return $this->config->numbers($interval->h).' ម៉ោង'.$suffix;
+            return $this->config->numbers($interval->h).$durationSpace.'ម៉ោង'.$suffix;
         }
         if ($interval->i >= 1) {
-            return $this->config->numbers($interval->i).' នាទី'.$suffix;
+            return $this->config->numbers($interval->i).$durationSpace.'នាទី'.$suffix;
         }
         
-        return $this->config->numbers($interval->s).' វិនាទី'.$suffix;
+        return $this->config->numbers($interval->s).$durationSpace.'វិនាទី'.$suffix;
     }
     
     /**

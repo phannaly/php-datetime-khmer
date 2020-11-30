@@ -58,14 +58,14 @@ class KhmerDateTimeTest extends TestCase
         $now = new DateTime("2020-09-20");
         $dateTime = KhmerDateTime::parse('2012-10-20');
 
-        $this->assertEquals("៧ ឆ្នាំមុន", $dateTime->durationFrom($now));
+        $this->assertEquals("៧ ឆ្នាំមុន", $dateTime->durationFrom($now, true));
     }
     public function test_date_time_from_now_in_month()
     {
         $now = new DateTime("2020-09-20");
         $dateTime = KhmerDateTime::parse('2020-03-20');
 
-        $this->assertEquals("៦ ខែមុន", $dateTime->durationFrom($now));
+        $this->assertEquals("៦ ខែមុន", $dateTime->durationFrom($now, true));
     }
 
     public function test_date_time_from_now_in_day()
@@ -73,7 +73,7 @@ class KhmerDateTimeTest extends TestCase
         $now = new DateTime("2020-09-20");
         $dateTime = KhmerDateTime::parse('2020-09-15');
 
-        $this->assertEquals("៥ ថ្ងៃមុន", $dateTime->durationFrom($now));
+        $this->assertEquals("៥ ថ្ងៃមុន", $dateTime->durationFrom($now, true));
     }
 
     public function test_date_time_from_now_in_hour()
@@ -81,7 +81,7 @@ class KhmerDateTimeTest extends TestCase
         $now = new DateTime("2020-09-15 06:00");
         $dateTime = KhmerDateTime::parse('2020-09-15 02:00');
 
-        $this->assertEquals("៤ ម៉ោងមុន", $dateTime->durationFrom($now));
+        $this->assertEquals("៤ ម៉ោងមុន", $dateTime->durationFrom($now, true));
     }
 
     public function test_date_time_from_now_in_minute()
@@ -89,7 +89,7 @@ class KhmerDateTimeTest extends TestCase
         $now = new DateTime("2020-09-15 06:03");
         $dateTime = KhmerDateTime::parse('2020-09-15 06:00');
 
-        $this->assertEquals("៣ នាទីមុន", $dateTime->durationFrom($now));
+        $this->assertEquals("៣ នាទីមុន", $dateTime->durationFrom($now, true));
     }
 
     public function test_date_time_from_now_in_minute_for_future()
@@ -97,6 +97,14 @@ class KhmerDateTimeTest extends TestCase
         $now = new DateTime("2020-09-15");
         $dateTime = KhmerDateTime::parse('2021-09-15');
 
-        $this->assertEquals("១ ឆ្នាំទៀត", $dateTime->durationFrom($now));
+        $this->assertEquals("១ ឆ្នាំទៀត", $dateTime->durationFrom($now, true));
+    }
+
+    public function test_date_time_from_now_without_space()
+    {
+        $now = new DateTime("2020-09-20");
+        $dateTime = KhmerDateTime::parse('2012-10-20');
+
+        $this->assertEquals("៧ឆ្នាំមុន", $dateTime->durationFrom($now, false));
     }
 }
